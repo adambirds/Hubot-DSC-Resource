@@ -13,6 +13,7 @@ $modulesToInstall = @(
     'Pester',
     'psake',
     'PSDeploy',
+	'BuildHelpers'
     'PSScriptAnalyzer'
     'cChoco' # Required by DSC Resource
     'xPSDesiredStateConfiguration' # Required by DSC Resource
@@ -25,6 +26,8 @@ ForEach ($module in $modulesToInstall)
         Install-Module -Name $module -Force -Scope CurrentUser
     }
 }
+
+Set-BuildEnvironment
 
 if (-not($env:APPVEYOR))
 {

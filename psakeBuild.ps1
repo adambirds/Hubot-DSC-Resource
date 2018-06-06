@@ -131,3 +131,12 @@ task BuildArtifact -depends Analyze, Test, MOFTestDeploy, MOFTest {
         $zip = Get-ChildItem -Path $PSScriptRoot\Artifact\*.zip |  % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
     }
 }
+
+task Deploy -depends BuildArtifact {
+	$Params = @{
+    Path = $ProjectRoot
+    Force = $true
+    Recurse = $false # We keep psdeploy.ps1 test artifacts, avoid deploying those : )
+}
+	Invoke-PSDeploy @Params -Verbose:$true
+}
