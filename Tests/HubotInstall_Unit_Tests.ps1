@@ -2,7 +2,7 @@
 #  TEST HEADER  #
 #################
 
-$dscModule = 'Hubot'
+$dscModule = 'InstallHubot'
 
 $originalLocation = Get-Location
 

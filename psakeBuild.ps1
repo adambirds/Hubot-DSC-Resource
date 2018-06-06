@@ -86,7 +86,7 @@ task MOFTestDeploy -depends Analyze, Test {
         if ($env:APPVEYOR)
         {
             # copy into the userprofile in appveyor so the module can be loaded
-            Start-Process -FilePath 'robocopy.exe' -ArgumentList "$PSScriptRoot $env:USERPROFILE\Documents\WindowsPowerShell\Modules\Hubot /S /R:1 /W:1" -Wait -NoNewWindow
+            Start-Process -FilePath 'robocopy.exe' -ArgumentList "$PSScriptRoot $env:USERPROFILE\Documents\WindowsPowerShell\Modules\InstallHubot /S /R:1 /W:1" -Wait -NoNewWindow
         }
         else
         {
