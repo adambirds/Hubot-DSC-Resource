@@ -13,9 +13,10 @@ $modulesToInstall = @(
     'Pester',
     'psake',
     'PSDeploy',
-	'BuildHelpers'
-    'PSScriptAnalyzer'
-    'cChoco' # Required by DSC Resource
+    'BuildHelpers',
+    'posh-git',
+    'PSScriptAnalyzer',
+    'cChoco', # Required by DSC Resource
     'xPSDesiredStateConfiguration' # Required by DSC Resource
 )
 

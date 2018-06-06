@@ -139,6 +139,50 @@ task BuildArtifact -depends Analyze, Test, MOFTestDeploy, MOFTest {
 }
 
 task Deploy -depends BuildArtifact {
+    Try {
+        #Create the new version value and the dsc resource list.
+        $ManifestPath = "$PSScriptRoot\InstallHubot.psd1"
+        $Manifest = Test-ModuleManifest -Path $ManifestPath
+        [System.Version]$version = $Manifest.Version
+        Write-Output "Old Version: $version"
+        [String]$newVersion = New-Object -TypeName System.Version -ArgumentList ($version.Major, $version.Minor, ($version.Build+1))
+        Write-Output "New Version: $newVersion"
+        $DscResources = $Manifest.ExportedDscResources
+        $NoOfDscResources = $DscResources.Count
+        $Count = 0
+        ForEach ($DscResource in $DscResources) {
+            $Count = $Count + 1
+            If ($Count -eq 1 -and $Count -eq $NoOfDscResources) {
+                $DscResourceList = "@('$DscResource')"
+            } ElseIf ($Count -eq 1 -and $Count -ne $NoOfDscResources) {
+                $DscResourceList = "@('$DscResource'"
+            } ElseIf ($Count -eq $NoOfDscResources) {
+                $DscResourceList = $DscResourceList + ", '$DscResource')"
+            } Else {
+                $DscResourceList = $DscResourceList + ", '$DscResource'"
+            }
+        }
+        #Updates the module with the new version and fixes string replace bug.
+        Update-ModuleManifest -Path $manifestPath -ModuleVersion $newVersion -DscResourcesToExport $DscResources
+        (Get-Content -Path $manifestPath) -replace 'PSGet_InstallHubot', 'InstallHubot' | Set-Content -Path $ManifestPath
+        (Get-Content -Path $manifestPath) -replace 'NewManifest', 'InstallHubot' | Set-Content -Path $ManifestPath
+        $Line = Get-Content $ManifestPath | Select-String "DscResourcesToExport =" | Select-Object -ExpandProperty Line
+        (Get-Content -Path $manifestPath) -replace $Line, "DscResourcesToExport = $DscResourceList" | Set-Content -Path $ManifestPath -Force
+    } Catch {
+        Write-Error "Incrementing version failed. Build can not continue."
+    }
+    Try 
+        $env:Path += ";$env:ProgramFiles\Git\cmd"
+        Import-Module posh-git -ErrorAction Stop
+        git checkout master
+        git add --all
+        git status
+        git commit -s -m "Update version to $newVersion"
+        git push origin master
+    Catch {
+        Write-Error "Cannot push updated version to GitHub. Build cannot continue."
+    }
+
 	$Params = @{
     Path = $ProjectRoot
     Force = $true
