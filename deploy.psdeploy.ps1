@@ -22,7 +22,7 @@ if(
     $env:BHModulePath -and
     $env:BHBuildSystem -ne 'Unknown' -and
     $env:BHBranchName -eq "master" -and
-    $env:BHCommitMessage -match '!deploy'
+    $env:BHCommitMessage -like '*!deploy*'
 )
 {
     Deploy Module {
