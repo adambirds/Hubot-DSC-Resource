@@ -15,8 +15,7 @@ install:
   - ps: Write-Output "Build Number $($env:APPVEYOR_BUILD_NUMBER)"
   - ps: Write-Output "Build Version $($env:APPVEYOR_BUILD_VERSION)"
 
-build: false
-version: '1.1.{build}'
+build: off
 
 before_test:
   - git config --global credential.helper store
