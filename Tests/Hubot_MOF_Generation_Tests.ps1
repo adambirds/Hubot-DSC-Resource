@@ -37,7 +37,7 @@
             $moduleVersion = Select-String -Path .\InstallHubot.psd1 -Pattern "ModuleVersion = '(.*)'"
             $moduleVersion = $moduleVersion.Matches.Groups[1].Value
 
-            $exampleVersion = Select-String -Path $dscExamplePath -Pattern 'ModuleName=\"Hubot\"\; RequiredVersion=\"(.*)\"'
+            $exampleVersion = Select-String -Path $dscExamplePath -Pattern 'ModuleName=\"InstallHubot\"\; RequiredVersion=\"(.*)\"'
             $exampleVersion = $exampleVersion.Matches.Groups[1].Value
 
             $exampleVersion | Should BeExactly $moduleVersion
