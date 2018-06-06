@@ -18,12 +18,6 @@ install:
 build: off
 
 before_test:
-  - git config --global credential.helper store
-  - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:GitHubKey):x-oauth-basic@github.com`n"
-  - git config --global user.email "adam.birds@adbtechltd.co.uk"
-  - git config --global user.name "adambirds"
-  - git remote remove origin
-  - git remote add origin https://github.com/adambirds/Hubot-DSC-Resource.git
   - ps: .\build.ps1
 
 test_script:
