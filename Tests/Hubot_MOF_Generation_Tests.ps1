@@ -1,6 +1,6 @@
 ﻿describe "Hubot DSC Module - MOF Testing" {
 
-    $dscExamplePath = Join-path -Path '.\Examples' -ChildPath 'dsc_configuration.ps1'
+    $dscExamplePath = Join-path -Path '.\DSCConfigurations' -ChildPath 'dsc_configuration.ps1'
 
     context "Get-DSCResource" {
         $res = Get-DscResource

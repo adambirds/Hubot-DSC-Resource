@@ -71,7 +71,7 @@
     Archive nssm {
         Ensure = $Ensure
         Path = "$($env:Temp)\$($nssmFile)"
-        Destination = "C:\nssm"         
+        Destination = "C:\nssm"
         DependsOn = '[xRemoteFile]dlnssm'
     }
 }

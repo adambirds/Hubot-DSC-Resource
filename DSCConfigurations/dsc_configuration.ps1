@@ -1,24 +1,10 @@
 ﻿Configuration Hubot {   
-    Param (
-		[Parameter(Mandatory=$true)]
-		[string]$NodeName,
-		[Parameter(Mandatory=$true)]
-		[string]$Role,
-		[Parameter(Mandatory=$true)]
-		[string]$SlackAPIKey,
-		[Parameter(Mandatory=$true)]
-		[string]$HubotAdapter,
-		[Parameter(Mandatory=$true)]
-		[string]$HubotBotName,
-		[Parameter(Mandatory=$true)]
-		[string]$HubotBotPath
-	)
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -Name MSFT_xRemoteFile -ModuleName xPSDesiredStateConfiguration
-    Import-DscResource -ModuleName @{ModuleName="Hubot"; RequiredVersion="1.2.0"}
+    Import-DscResource -ModuleName @{ModuleName="InstallHubot"; RequiredVersion="2.0.0"}
 
-             
+    node $AllNodes.Where{$_.Role -eq "Hubot"}.NodeName {         
         # Set an adapter for hubot to use
         Environment hubotadapter {
             Name = 'HUBOT_ADAPTER'
@@ -76,3 +62,16 @@
         }
     }
 }
+
+$configData = @{
+    AllNodes = @(
+            @{
+                NodeName = 'localhost';
+                Role = 'Hubot'
+                SlackAPIKey = 'xoxb-XXXXXXXXXXXXXXXX-XXXXXXXXXXXXXXXX'
+                HubotAdapter = 'slack'
+                HubotBotName = 'bot'
+                HubotBotPath = 'C:\SCRIPTS\myhubot'
+            }
+        )
+    }

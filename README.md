@@ -19,16 +19,33 @@ You can find the DSC Configuration here: [dsc_configuration.ps1](DSCConfiguratio
 
    `Install-Module -Name InstallHubot`
 
-2. To setup the DSC Configuartion, run the [dsc_configuration.ps1](DSCConfigurations/dsc_configuration.ps1) script.
+2. You need to edit the below section of [dsc_configuration.ps1](DSCConfigurations/dsc_configuration.ps1) to your desired settings.
 
-3. To create your MOF file run the below commands, editing the variables to what you need:
+    ``` powershell
+    $configData = @{
+    AllNodes = @(
+            @{
+                NodeName = 'localhost';
+                Role = 'Hubot'
+                SlackAPIKey = 'xoxb-XXXXXXXXXXXXXXXX-XXXXXXXXXXXXXXXX'
+                HubotAdapter = 'slack'
+                HubotBotName = 'bot' #This can not be Hubot
+                HubotBotPath = 'C:\SCRIPTS\myhubot'
+            }
+        )
+    }
+    ```
+
+3. To setup the DSC Configuartion, run the [dsc_configuration.ps1](DSCConfigurations/dsc_configuration.ps1) script.
+
+4. To create your MOF file run the below commands, editing the variables to what you need:
 
    ``` powershell
    cd "C:\SCRIPTS" #Make this diretcory if not already existing
-   Hubot -NodeName "localhost" -SlackAPIKey "xoxb-YOUR-TOKEN-HERE" -HubotAdapter "slack" -HubotBotName "bot" -HubotBotPath "C:\SCRIPTS\myhubot" #HubotBotName can not be Hubot
+   Hubot -ConfigurationData $configData
    ```
 
-4. To run the DSC Configuration run the following commands:
+5. To run the DSC Configuration run the following commands:
 
    ```powershell
    Start-DSCConfiguration -Path "C:\SCRIPTS\Hubot" -Wait
@@ -43,7 +60,8 @@ You can find the DSC Configuration here: [dsc_configuration.ps1](DSCConfiguratio
 ## Packaging
 
 The DSC Resource Module is called `InstallHubot` and is available on the PowerShell Gallery:
-* https://www.powershellgallery.com/packages/InstallHubot
+
+* Click [here](https://www.powershellgallery.com/packages/InstallHubot)
 
 ## Versions
 
@@ -61,7 +79,6 @@ The DSC Resource Module is called `InstallHubot` and is available on the PowerSh
 ### 1.1.4
 
 * Removing dependency on `cChoco` and `Chocolatey`. This requires the node to reboot after installing Node.js as part of the `HubotPrerequisites` resource unfortunately.
-
 
 ### 1.1.3
 
