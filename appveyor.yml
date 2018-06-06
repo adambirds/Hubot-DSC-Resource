@@ -3,7 +3,7 @@
 environment:
   NuGetApiKey:
     secure: QPlmSJgZZQsZS4aBjAwIIOgyZ+jTyJ01/Ox9icT7f+Tg1bbFeYcVQreMoqAb7l+7
-  GitHubKey:
+  access_token:
     secure: 5XdP6pId4p0ZveItsvG+Zv3c3Yv8kXUg3LTGh+R6er9t5sY9Bm+RRlQgMS2glZh5
 
 skip_commits:
@@ -21,7 +21,9 @@ before_test:
   - git config --global credential.helper store
   - ps: Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:GitHubKey):x-oauth-basic@github.com`n"
   - git config --global user.email "adam.birds@adbtechltd.co.uk"
-  - git config --global user.name "Adam Birds"
+  - git config --global user.name "adambirds"
+  - git remote remove origin
+  - git remote add origin https://github.com/adambirds/Hubot-DSC-Resource.git
   - ps: .\build.ps1
 
 test_script:
@@ -34,6 +36,19 @@ branches:
   # whitelist
   only:
     - master
+
+on_success:
+  - git config --global credential.helper store
+  - ps: Add-Content "$HOME\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+  - git config --global user.email "adam.birds@adbtechltd.co.uk"
+  - git config --global user.name "Adam Birds"
+  - git checkout master
+  - git add --all
+  - git status
+  - git commit -s -m "Update version to $newVersion"
+  - git status
+  - git push origin master
+  - git status
 
 #on_finish:
 #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
