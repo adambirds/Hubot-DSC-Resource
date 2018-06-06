@@ -171,7 +171,7 @@ task Deploy -depends BuildArtifact {
     } Catch {
         Write-Error "Incrementing version failed. Build can not continue."
     }
-    Try 
+    Try {
         $env:Path += ";$env:ProgramFiles\Git\cmd"
         Import-Module posh-git -ErrorAction Stop
         git checkout master
@@ -179,7 +179,7 @@ task Deploy -depends BuildArtifact {
         git status
         git commit -s -m "Update version to $newVersion"
         git push origin master
-    Catch {
+    } Catch {
         Write-Error "Cannot push updated version to GitHub. Build cannot continue."
     }
 
