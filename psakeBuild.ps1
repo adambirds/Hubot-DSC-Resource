@@ -8,7 +8,7 @@
     $originalPath = $PSScriptRoot
 
     # pathInModuleDir is the path where the symbolic link will be created which points to your repo
-    $pathInModuleDir = 'C:\Program Files\WindowsPowerShell\Modules\Hubot'
+    $pathInModuleDir = 'C:\Program Files\WindowsPowerShell\Modules\InstallHubot'
 }
 
 task default -depends Analyze, Test, MOFTestDeploy, MOFTest, BuildArtifact
@@ -120,10 +120,10 @@ task BuildArtifact -depends Analyze, Test, MOFTestDeploy, MOFTest {
     New-Item -Path "$PSScriptRoot\Artifact" -ItemType Directory -Force
 
     # Copy the correct items into the artifacts directory, filtering out the junk
-    Start-Process -FilePath 'robocopy.exe' -ArgumentList "`"$($PSScriptRoot)`" `"$($PSScriptRoot)\Artifact\Hubot`" /S /R:1 /W:1 /XD Artifact .kitchen .git /XF .gitignore build.ps1 psakeBuild.ps1 *.yml *.xml" -Wait -NoNewWindow
+    Start-Process -FilePath 'robocopy.exe' -ArgumentList "`"$($PSScriptRoot)`" `"$($PSScriptRoot)\Artifact\InstallHubot`" /S /R:1 /W:1 /XD Artifact .kitchen .git /XF .gitignore build.ps1 psakeBuild.ps1 *.yml *.xml" -Wait -NoNewWindow
 
     # Create a zip file artifact
-    Compress-Archive -Path $PSScriptRoot\Artifact\Hubot -DestinationPath $PSScriptRoot\Artifact\Hubot-$build_version.zip -Force
+    Compress-Archive -Path $PSScriptRoot\Artifact\InstallHubot -DestinationPath $PSScriptRoot\Artifact\InstallHubot-$build_version.zip -Force
 
     if ($env:APPVEYOR)
     {

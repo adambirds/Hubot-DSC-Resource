@@ -2,66 +2,57 @@
 
 ![Hubot](http://i.imgur.com/NhTqeZ2.png)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/kjweb2q53xa3198h?svg=true)](https://ci.appveyor.com/project/MattHodge/hubot-dsc-resource)
+[![Build status](https://ci.appveyor.com/api/projects/status/yj30jkt66cy2ihix/branch/master?svg=true)](https://ci.appveyor.com/project/adambirds/hubot-dsc-resource/branch/master)
 
-The **Hubot** module contains the `HubotPrerequisites`, `HubotInstall` and `HubotInstallService` DSC Resources to install Hubot on Windows.
+The **InstallHubot** module contains the `HubotPrerequisites`, `HubotInstall` and `HubotInstallService`
+DSC Resources to install Hubot on Windows with Slack as the adapter.
 
 This resource installs and runs Hubot as a service on Windows using NSSM.
 
-I recommend using the [HubotWindows](https://github.com/MattHodge/HubotWindows) repository to get the Hubot setup on your node and use the following DSC resources to configure it.
+## DSC Configuration
 
-For an introduction to using Hubot on Windows, take a look at [ChatOps on Windows with Hubot and PowerShell](https://hodgkins.io/chatops-on-windows-with-hubot-and-powershell).
-
-## Resources
-
-### HubotPrerequisites
-
-Parameter | Notes |  Mandatory
-| --- | --- | --- |
-Ensure | Ensures that the prerequisites is Present or Absent | `Yes`
-
-### HubotInstall
-
-Parameter | Notes |  Mandatory
-| --- | --- | --- |
-BotPath | Path that the Windows Hubot package is installed. (Get from here: https://github.com/MattHodge/HubotWindows) | `Yes`
-Ensure | Ensures that the bot is Present or Absent | `Yes`
-
-### HubotInstallService
-
-Parameter | Notes |  Mandatory
-| --- | --- | --- |
-BotPath | Path that the Windows Hubot package is installed. (Get from here: https://github.com/MattHodge/HubotWindows) | `Yes`
-ServiceName | Name to give the Hubot Windows service | `Yes`
-Credential | Credential of account to run the Hubot service under. If left blank, the service will run under the `SYSTEM` account. | `No`
-BotAdapter | The name of the Hubot adapter to use. (https://github.com/github/hubot/blob/master/docs/adapters.md) | `Yes`
-Ensure | Ensures that the bot is Present or Absent | `Yes`
-
-## Examples
-
-You can find an installation example here: [dsc_configuration.ps1](Examples/dsc_configuration.ps1)
+You can find the DSC Configuration here: [dsc_configuration.ps1](DSCConfigurations/dsc_configuration.ps1)
 
 ## Installation
 
-To install the module, use:
+1. To install the module, use:
 
-`Install-Module -Name Hubot`
+   `Install-Module -Name InstallHubot`
 
-A video of the installation on a remote machine:
+2. To setup the DSC Configuartion, run the [dsc_configuration.ps1](DSCConfigurations/dsc_configuration.ps1) script.
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=Gh-vYprIo7c
-" target="_blank"><img src="http://img.youtube.com/vi/Gh-vYprIo7c/0.jpg"
-alt="Hubot DSC Installation Video" border="10" /></a>
+3. To create your MOF file run the below commands, editing the variables to what you need:
+
+   ``` powershell
+   cd "C:\SCRIPTS" #Make this diretcory if not already existing
+   Hubot -NodeName "localhost" -SlackAPIKey "xoxb-YOUR-TOKEN-HERE" -HubotAdapter "slack" -HubotBotName "bot" -HubotBotPath "C:\SCRIPTS\myhubot" #HubotBotName can not be Hubot
+   ```
+
+4. To run the DSC Configuration run the following commands:
+
+   ```powershell
+   Start-DSCConfiguration -Path "C:\SCRIPTS\Hubot" -Wait
+   ```
+
+   The server will then ask for a reboot. Reboot the server and again run the below command:
+
+   ``` powershell
+   Start-DSCConfiguration -Path "C:\SCRIPTS\Hubot" -Wait
+   ```
 
 ## Packaging
 
-The DSC Resource Module is called `Hubot` and is available on the PowerShell Gallery:
-* https://www.powershellgallery.com/packages/Hubot
-
-## Testing Using Test-Kitchen
-* Make sure the repo is cloned as `Hubot` or Test-Kitchen will not work.
+The DSC Resource Module is called `InstallHubot` and is available on the PowerShell Gallery:
+* https://www.powershellgallery.com/packages/InstallHubot
 
 ## Versions
+
+### 1.2.0
+
+* Updated module dependencies so that it pulls down later versions of Git and NodeJs
+* Updated module dependences so that it installs `MSFT_xScriptResource` as part of `xPSDesiredStateConfiguration`
+* Updated DSC Configuration to fix several bugs.
+* Updated Documentation
 
 ### 1.1.5
 
