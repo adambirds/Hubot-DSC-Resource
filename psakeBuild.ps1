@@ -146,7 +146,12 @@ task Deploy -depends BuildArtifact {
         [System.Version]$version = $Manifest.Version
         Write-Output "Old Version: $version"
         [String]$newVersion = New-Object -TypeName System.Version -ArgumentList ($version.Major, $version.Minor, ($version.Build+1))
-        Write-Output "New Version: $newVersion"
+        If ($newVersion -ne $env:appveyor_build_version) {
+            $newVersion = $env:appveyor_build_version
+            Write-Output "New Version: $newVersion"
+        } Else {
+            Write-Output "New Version: $newVersion"
+        }
         $DscResources = $Manifest.ExportedDscResources
         $NoOfDscResources = $DscResources.Count
         $Count = 0
