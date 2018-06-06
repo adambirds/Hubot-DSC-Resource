@@ -169,7 +169,11 @@ task Deploy -depends BuildArtifact {
         $Line = Get-Content $ManifestPath | Select-String "DscResourcesToExport =" | Select-Object -ExpandProperty Line
         (Get-Content -Path $manifestPath) -replace $Line, "DscResourcesToExport = $DscResourceList" | Set-Content -Path $ManifestPath -Force
     } Catch {
-        Write-Error "Incrementing version failed. Build can not continue."
+        $ErrorMessage = $_.Exception.Message
+        $FailedItem = $_.Exception.ItemName
+        Write-Output $ErrorMessage
+        Write-Output $FailedItem
+        throw "Incrementing version failed. Build can not continue."
     }
     Try {
         $env:Path += ";$env:ProgramFiles\Git\cmd"
@@ -180,13 +184,25 @@ task Deploy -depends BuildArtifact {
         git commit -s -m "Update version to $newVersion"
         git push origin master
     } Catch {
-        Write-Error "Cannot push updated version to GitHub. Build cannot continue."
+        $ErrorMessage = $_.Exception.Message
+        $FailedItem = $_.Exception.ItemName
+        Write-Output $ErrorMessage
+        Write-Output $FailedItem
+        throw "Cannot push updated version to GitHub. Build cannot continue."
     }
 
-	$Params = @{
-    Path = $ProjectRoot
-    Force = $true
-    Recurse = $false # We keep psdeploy.ps1 test artifacts, avoid deploying those : )
-}
-	Invoke-PSDeploy @Params -Verbose:$true
+    Try {
+        $Params = @{
+            Path = $ProjectRoot
+            Force = $true
+            Recurse = $false # We keep psdeploy.ps1 test artifacts, avoid deploying those : )
+        }
+        Invoke-PSDeploy @Params -Verbose:$true
+    } Catch {
+        $ErrorMessage = $_.Exception.Message
+        $FailedItem = $_.Exception.ItemName
+        Write-Output $ErrorMessage
+        Write-Output $FailedItem
+        throw "Can't publish to gallery."
+    }
 }
