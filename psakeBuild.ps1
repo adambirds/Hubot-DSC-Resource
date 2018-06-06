@@ -11,7 +11,7 @@
     $pathInModuleDir = 'C:\Program Files\WindowsPowerShell\Modules\InstallHubot'
 }
 
-task default -depends Analyze, Test, MOFTestDeploy, MOFTest, BuildArtifact
+task default -depends Analyze, Test, MOFTestDeploy, MOFTest, BuildArtifact, Deploy
 
 task TestProperties { 
   Assert ($build_version -ne $null) "build_version should not be null"
