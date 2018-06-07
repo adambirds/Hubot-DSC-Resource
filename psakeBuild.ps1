@@ -134,7 +134,7 @@ task BuildArtifact -depends Analyze, Test, MOFTestDeploy, MOFTest {
     if ($env:APPVEYOR)
     {
         # Push the artifact into appveyor
-        $zip = Get-ChildItem -Path $PSScriptRoot\Artifact\*.zip |  % { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
+        $zip = Get-ChildItem -Path $PSScriptRoot\Artifact\*.zip |  ForEach-Object { Push-AppveyorArtifact $_.FullName -FileName $_.Name }
     }
 }
 
@@ -174,7 +174,7 @@ task Deploy -depends BuildArtifact {
         (Get-Content -Path $manifestPath) -replace 'NewManifest', 'InstallHubot' | Set-Content -Path $ManifestPath
         $Line = Get-Content $ManifestPath | Select-String "DscResourcesToExport =" | Select-Object -ExpandProperty Line
         (Get-Content -Path $manifestPath) -replace $Line, "DscResourcesToExport = $DscResourceList" | Set-Content -Path $ManifestPath -Force
-        (Get-Content -Path "$PSScriptRoot\DSCConfigurations\dsc_configuration.ps1") -replace "@{ModuleName="InstallHubot"; RequiredVersion="$oldversion"}", "@{ModuleName="InstallHubot"; RequiredVersion="$newversion"}" | Set-Content -Path "$PSScriptRoot\DSCConfigurations\dsc_configuration.ps1" -Force
+        (Get-Content -Path "$PSScriptRoot\DSCConfigurations\dsc_configuration.ps1") -replace @{ModuleName="InstallHubot"; RequiredVersion="$oldversion"}, @{ModuleName="InstallHubot"; RequiredVersion="$newversion"} | Set-Content -Path "$PSScriptRoot\DSCConfigurations\dsc_configuration.ps1" -Force
     } Catch {
         $ErrorMessage = $_.Exception.Message
         $FailedItem = $_.Exception.ItemName
