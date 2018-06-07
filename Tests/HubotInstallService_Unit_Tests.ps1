@@ -17,9 +17,9 @@ describe "HubotInstallService" {
     ######################################
 
     # To support $root\Tests folder structure
-    If (Test-Path "..\$dscModule.psm1") {Copy-Item "..\$dscModule.psm1" 'TestDrive:\script.ps1'}
+    If (Test-Path "..\InstallHubot\$dscModule.psm1") {Copy-Item "..\InstallHubot\$dscModule.psm1" 'TestDrive:\script.ps1'}
     # To support $root\Tests\Unit folder structure
-    ElseIf (Test-Path "..\..\$dscModule.psm1") {Copy-Item "..\..\$dscModule.psm1" 'TestDrive:\script.ps1'}
+    ElseIf (Test-Path "..\..\InstallHubot\$dscModule.psm1") {Copy-Item "..\..\InstallHubot\$dscModule.psm1" 'TestDrive:\script.ps1'}
     # Or simply throw...
     Else {Throw 'Unable to find source .psm1 file to test against.'}
     
