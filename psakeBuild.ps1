@@ -144,6 +144,7 @@ task Deploy -depends BuildArtifact {
         $ManifestPath = "$PSScriptRoot\InstallHubot.psd1"
         $Manifest = Test-ModuleManifest -Path $ManifestPath
         [System.Version]$version = $Manifest.Version
+        [System.Version]$oldversion = $Manifest.Version
         Write-Output "Old Version: $version"
         [String]$newVersion = New-Object -TypeName System.Version -ArgumentList ($version.Major, $version.Minor, ($version.Build+1))
         If ($newVersion -ne $env:appveyor_build_version) {
@@ -173,6 +174,7 @@ task Deploy -depends BuildArtifact {
         (Get-Content -Path $manifestPath) -replace 'NewManifest', 'InstallHubot' | Set-Content -Path $ManifestPath
         $Line = Get-Content $ManifestPath | Select-String "DscResourcesToExport =" | Select-Object -ExpandProperty Line
         (Get-Content -Path $manifestPath) -replace $Line, "DscResourcesToExport = $DscResourceList" | Set-Content -Path $ManifestPath -Force
+        (Get-Content -Path "$PSScriptRoot\DSCConfigurations\dsc_configuration.ps1" -replace "@{ModuleName="InstallHubot"; RequiredVersion="$oldversion"}", "@{ModuleName="InstallHubot"; RequiredVersion="$newversion"}" | Set-Content -Path $ManifestPath -Force
     } Catch {
         $ErrorMessage = $_.Exception.Message
         $FailedItem = $_.Exception.ItemName

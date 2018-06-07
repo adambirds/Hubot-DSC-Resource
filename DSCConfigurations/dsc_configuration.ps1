@@ -2,7 +2,7 @@
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -Name MSFT_xRemoteFile -ModuleName xPSDesiredStateConfiguration
-    Import-DscResource -ModuleName @{ModuleName="InstallHubot"; RequiredVersion="2.0.0"}
+    Import-DscResource -ModuleName @{ModuleName="InstallHubot"; RequiredVersion="2.0.12"}
 
     node $AllNodes.Where{$_.Role -eq "Hubot"}.NodeName {         
         # Set an adapter for hubot to use
