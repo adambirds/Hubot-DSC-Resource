@@ -1,4 +1,4 @@
-﻿Configuration Hubot {   
+Configuration Hubot {   
 
     Import-DscResource -ModuleName PSDesiredStateConfiguration
     Import-DscResource -Name MSFT_xRemoteFile -ModuleName xPSDesiredStateConfiguration

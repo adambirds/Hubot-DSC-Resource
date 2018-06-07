@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-results xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="nunit_schema_2.5.xsd" name="Pester" total="5" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2018-06-07" time="07:53:54">
+  <environment user="appveyor" machine-name="APPVEYOR-VM" cwd="C:\projects\hubot-dsc-resource" user-domain="APPVEYOR-VM" platform="Microsoft Windows Server 2012 R2 Datacenter|C:\windows|\Device\Harddisk0\Partition1" nunit-version="2.5.8.0" os-version="6.3.9600" clr-version="4.0.30319.42000" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="TestFixture" name="Pester" executed="True" result="Success" success="True" time="0.7228" asserts="0" description="Pester">
+    <results>
+      <test-suite type="TestFixture" name="C:\projects\hubot-dsc-resource\Tests\HubotHelpers_Unit_Tests.ps1" executed="True" result="Success" success="True" time="0.7228" asserts="0" description="C:\projects\hubot-dsc-resource\Tests\HubotHelpers_Unit_Tests.ps1">
+        <results>
+          <test-suite type="TestFixture" name="HubotHelpers" executed="True" result="Success" success="True" time="0.7228" asserts="0" description="HubotHelpers">
+            <results>
+              <test-suite type="TestFixture" name="RefreshPathVariable" executed="True" result="Success" success="True" time="0.6526" asserts="0" description="RefreshPathVariable">
+                <results>
+                  <test-case description="returns something" name="HubotHelpers.RefreshPathVariable.returns something" time="0.5435" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="return should contain atleast one semicolon" name="HubotHelpers.RefreshPathVariable.return should contain atleast one semicolon" time="0.0786" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="when split into array should have 2 or more items" name="HubotHelpers.RefreshPathVariable.when split into array should have 2 or more items" time="0.0305" asserts="0" success="True" result="Success" executed="True" />
+                </results>
+              </test-suite>
+              <test-suite type="TestFixture" name="CheckPathExists" executed="True" result="Success" success="True" time="0.0701" asserts="0" description="CheckPathExists">
+                <results>
+                  <test-case description="returns true when path that exists is passed" name="HubotHelpers.CheckPathExists.returns true when path that exists is passed" time="0.0485" asserts="0" success="True" result="Success" executed="True" />
+                  <test-case description="returns false when path that does not exist is passed" name="HubotHelpers.CheckPathExists.returns false when path that does not exist is passed" time="0.0217" asserts="0" success="True" result="Success" executed="True" />
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
