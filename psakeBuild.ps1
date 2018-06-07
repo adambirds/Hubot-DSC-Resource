@@ -10,7 +10,7 @@ properties {
     # pathInModuleDir is the path where the symbolic link will be created which points to your repo
     $pathInModuleDir = 'C:\Program Files\WindowsPowerShell\Modules\InstallHubot'
 
-	$ProjectRoot = $ENV:BHProjectPath
+	$ProjectRoot = $ENV:APPVEYOR_BUILD_FOLDER
         if(-not $ProjectRoot)
         {
             $ProjectRoot = Resolve-Path "$PSScriptRoot\.."
