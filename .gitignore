@@ -1,5 +1,5 @@
 .kitchen
 Artifact
 /.vs
-PesterResults.*
-TestResults.*
+PesterResults*
+TestResults*

@@ -28,7 +28,7 @@ ForEach ($module in $modulesToInstall)
     }
 }
 
-Set-BuildEnvironment
+Set-BuildEnvironment -
 
 if (-not($env:APPVEYOR))
 {

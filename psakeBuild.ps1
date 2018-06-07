@@ -184,6 +184,10 @@ task Deploy -depends BuildArtifact {
     }
 
     Try {
+        Write-Host "Module Path : $env:BHModulePath"
+        Write-Host "Build System: $env:BHBuildSystem"
+        Write-Host "Branch Name: $env:BHBranchName"
+        Write-Host "Commit Message: $env:BHCommitMessage"
         $Params = @{
             Path = $ProjectRoot
             Force = $true
