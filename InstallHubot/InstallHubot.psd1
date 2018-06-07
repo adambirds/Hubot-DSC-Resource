@@ -12,7 +12,7 @@
 RootModule = 'InstallHubot.psm1'
 
 # Version number of this module.
-ModuleVersion = '2.0.34'
+ModuleVersion = '2.0.39'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -51,7 +51,7 @@ CLRVersion = '4.0'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @("xPSDesiredStateConfiguration")
+RequiredModules = @('xPSDesiredStateConfiguration')
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
