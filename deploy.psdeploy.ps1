@@ -19,7 +19,7 @@
 
 # Publish to gallery with a few restrictions
 if(
-    $PSScriptRoot -and
+    $ENV:APPVEYOR_BUILD_FOLDER -and
     $env:BHBuildSystem -ne 'Unknown' -and
     $env:BHBranchName -eq "master" -and
     $env:BHCommitMessage -like '*!deploy*'
@@ -27,7 +27,7 @@ if(
 {
     Deploy Module {
         By PSGalleryModule {
-            FromSource $PSScriptRoot
+            FromSource $ENV:APPVEYOR_BUILD_FOLDER
             To PSGallery
             WithOptions @{
                 ApiKey = $ENV:NugetApiKey
@@ -52,7 +52,7 @@ if(
 {
     Deploy DeveloperBuild {
         By AppVeyorModule {
-            FromSource $PSScriptRoot
+            FromSource $ENV:APPVEYOR_BUILD_FOLDER
             To AppVeyor
             WithOptions @{
                 Version = $env:APPVEYOR_BUILD_VERSION
