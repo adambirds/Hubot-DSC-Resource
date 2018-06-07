@@ -170,11 +170,11 @@ task Deploy -depends BuildArtifact {
         }
         #Updates the module with the new version and fixes string replace bug.
         Update-ModuleManifest -Path $manifestPath -ModuleVersion $newVersion -DscResourcesToExport $DscResources
+        (Get-Content -Path "$PSScriptRoot\DSCConfigurations\dsc_configuration.ps1") -replace "@{ModuleName='InstallHubot'; RequiredVersion="*"}", "@{ModuleName=`InstallHubot; RequiredVersion=$newversion}" | Set-Content -Path "$PSScriptRoot\DSCConfigurations\dsc_configuration.ps1" -Force
         (Get-Content -Path $manifestPath) -replace 'PSGet_InstallHubot', 'InstallHubot' | Set-Content -Path $ManifestPath
         (Get-Content -Path $manifestPath) -replace 'NewManifest', 'InstallHubot' | Set-Content -Path $ManifestPath
         $Line = Get-Content $ManifestPath | Select-String "DscResourcesToExport =" | Select-Object -ExpandProperty Line
         (Get-Content -Path $manifestPath) -replace $Line, "DscResourcesToExport = $DscResourceList" | Set-Content -Path $ManifestPath -Force
-        (Get-Content -Path "$PSScriptRoot\DSCConfigurations\dsc_configuration.ps1") -replace @{ModuleName="InstallHubot"; RequiredVersion="$oldversion"}, @{ModuleName="InstallHubot"; RequiredVersion="$newversion"} | Set-Content -Path "$PSScriptRoot\DSCConfigurations\dsc_configuration.ps1" -Force
     } Catch {
         $ErrorMessage = $_.Exception.Message
         $FailedItem = $_.Exception.ItemName
