@@ -1,7 +1,7 @@
 # See http://www.appveyor.com/docs/appveyor-yml for many more options
 
 init:
-- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 environment:
   NuGetApiKey:
@@ -45,11 +45,4 @@ on_success:
   - git commit -s -m "Update version to $newVersion"
   - git status
   - git push origin master
-<<<<<<< 86f78fde81c51e97ffae196adea00c2564c0dd68
   - git status
-
-on_finish:
-- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-=======
-  - git status
->>>>>>> Adding RDP Access to troubleshoot build.
