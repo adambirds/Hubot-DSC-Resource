@@ -51,7 +51,9 @@ CLRVersion = '4.0'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @({ModuleName="xPSDesiredStateConfiguration",ModuleVersion="8.2.0.0", Guid="cc8dc021-fa5f-4f96-8ecf-dfd68a6d9d48"})
+RequiredModules = @(
+    {ModuleName="xPSDesiredStateConfiguration"; ModuleVersion="8.2.0.0"}
+)
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
