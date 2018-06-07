@@ -27,7 +27,7 @@ if(
 {
     Deploy Module {
         By PSGalleryModule {
-            FromSource $ENV:APPVEYOR_BUILD_FOLDER
+            FromSource InstallHubot
             To PSGallery
             WithOptions @{
                 ApiKey = $ENV:NugetApiKey
@@ -52,7 +52,7 @@ if(
 {
     Deploy DeveloperBuild {
         By AppVeyorModule {
-            FromSource $ENV:APPVEYOR_BUILD_FOLDER
+            FromSource InstallHubot
             To AppVeyor
             WithOptions @{
                 Version = $env:APPVEYOR_BUILD_VERSION
