@@ -141,7 +141,7 @@ task BuildArtifact -depends Analyze, Test, MOFTestDeploy, MOFTest {
 task Deploy -depends BuildArtifact {
     Try {
         #Create the new version value and the dsc resource list.
-        $ManifestPath = "$PSScriptRoot\InstallHubot.psd1"
+        $ManifestPath = "$PSScriptRoot\InstallHubot\InstallHubot.psd1"
         $Manifest = Test-ModuleManifest -Path $ManifestPath
         [System.Version]$version = $Manifest.Version
         [System.Version]$oldversion = $Manifest.Version
@@ -153,6 +153,7 @@ task Deploy -depends BuildArtifact {
         } Else {
             Write-Output "New Version: $newVersion"
         }
+        $env:newVersion = $newVersion
         $DscResources = $Manifest.ExportedDscResources
         $NoOfDscResources = $DscResources.Count
         $Count = 0

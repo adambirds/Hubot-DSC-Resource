@@ -34,7 +34,7 @@
         . $dscExamplePath
 
         it "module version of InstallHubot.psd1 matches module version in $dscExamplePath" {
-            $moduleVersion = Select-String -Path .\InstallHubot.psd1 -Pattern "ModuleVersion = '(.*)'"
+            $moduleVersion = Select-String -Path .\InstallHubot\InstallHubot.psd1 -Pattern "ModuleVersion = '(.*)'"
             $moduleVersion = $moduleVersion.Matches.Groups[1].Value
 
             $exampleVersion = Select-String -Path $dscExamplePath -Pattern 'ModuleName=\"InstallHubot\"\; RequiredVersion=\"(.*)\"'
