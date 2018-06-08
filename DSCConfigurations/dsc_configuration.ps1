@@ -8,7 +8,7 @@ Configuration Hubot {
         # Set an adapter for hubot to use
         Environment hubotadapter {
             Name = 'HUBOT_ADAPTER'
-            Value = $HubotAdapter
+            Value = $Node.HubotAdapter
             Ensure = 'Present'
         }
 
@@ -22,7 +22,7 @@ Configuration Hubot {
         # Set any other environment variables that may be required for the hubot scripts
         Environment hubotslacktoken {
             Name = 'HUBOT_SLACK_TOKEN'
-            Value = $SlackAPIKey
+            Value = $Node.SlackAPIKey
             Ensure = 'Present'
         }
 
@@ -40,23 +40,23 @@ Configuration Hubot {
         # Extract the Hubot Repo
         Archive extractHubotRepo {
             Path = "$($env:Temp)\HubotWindows.zip"
-            Destination = $HubotBotPath
+            Destination = $Node.HubotBotPath
             Ensure = 'Present'
             DependsOn = '[xRemoteFile]hubotRepo'
         }
 
         # Install Hubot
         HubotInstall installHubot {
-            BotPath = $HubotBotPath
+            BotPath = $Node.HubotBotPath
             Ensure = 'Present'
             DependsOn = '[Archive]extractHubotRepo','[HubotPrerequisites]installPreqs'
         }
         
         # Install Hubot as a service using NSSM
         HubotInstallService myhubotservice {
-            BotPath = $HubotBotPath
-            ServiceName = "Hubot_$($HubotBotName)"
-            BotAdapter = $HubotAdapter
+            BotPath = $Node.HubotBotPath
+            ServiceName = "Hubot_$($Node.HubotBotName)"
+            BotAdapter = $Node.HubotAdapter
             Ensure = 'Present'
             DependsOn = '[HubotInstall]installHubot','[HubotPrerequisites]installPreqs'
         }

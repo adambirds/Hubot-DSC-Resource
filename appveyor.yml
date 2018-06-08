@@ -45,7 +45,7 @@ on_success:
   - git checkout master
   - git add --all
   - git status
-  - git commit -s -m "Update version to $newVersion"
+  - git commit -s -m "Update version to $($env:newVersion)"
   - git status
   - git push origin master
   - git status
