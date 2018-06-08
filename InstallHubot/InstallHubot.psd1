@@ -12,7 +12,7 @@
 RootModule = 'InstallHubot.psm1'
 
 # Version number of this module.
-ModuleVersion = '2.0.48'
+ModuleVersion = '2.0.50'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -109,17 +109,11 @@ PrivateData = @{
         # ReleaseNotes of this module
         # ReleaseNotes = ''
 
-        # Prerelease string of this module
-        # Prerelease = ''
-
-        # Flag to indicate whether the module requires explicit user acceptance for install/update
-        # RequireLicenseAcceptance = $false
-
         # External dependent modules of this module
-        # ExternalModuleDependencies = @()
+        # ExternalModuleDependencies = ''
 
     } # End of PSData hashtable
-
+    
  } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
