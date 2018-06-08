@@ -10,7 +10,7 @@ environment:
     secure: 5XdP6pId4p0ZveItsvG+Zv3c3Yv8kXUg3LTGh+R6er9t5sY9Bm+RRlQgMS2glZh5
 
 skip_commits:
-  message: /update version.*/
+  message: /Increment version number./
 
 os: "WMF 5"
 
@@ -45,7 +45,7 @@ on_success:
   - git checkout master
   - git add --all
   - git status
-  - git commit -s -m "Update version to $($env:newVersion)"
+  - git commit -s -m "Increment version number."
   - git status
   - git push origin master
   - git status
