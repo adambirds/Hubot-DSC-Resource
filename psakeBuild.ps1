@@ -184,7 +184,6 @@ task Deploy -depends BuildArtifact {
         throw "Incrementing version failed. Build can not continue."
     }
 
-    Try {
         Write-Host "Module Path : $ENV:BHProjectPath"
         Write-Host "Build System: $env:BHBuildSystem"
         Write-Host "Branch Name: $env:BHBranchName"
@@ -194,14 +193,6 @@ task Deploy -depends BuildArtifact {
             Force = $true
             Recurse = $false # We keep psdeploy.ps1 test artifacts, avoid deploying those : )
         }
-        Invoke-PSDeploy @Params -Verbose:$true -ErrorVariable $DeployError
-    } Catch {
-        $ErrorMessage = $_.Exception.Message
-        $FailedItem = $_.Exception.ItemName
-        Write-Output $ErrorMessage
-        Write-Output $FailedItem
-        Write-Output $DeployError
-        Write-Output $_.InvocationInfo.Line
-        throw "Can't publish to gallery."
-    }
+        Invoke-PSDeploy @Params -Verbose:$true
+    
 }
