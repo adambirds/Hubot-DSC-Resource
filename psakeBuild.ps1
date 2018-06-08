@@ -194,15 +194,14 @@ task Deploy -depends BuildArtifact {
             Force = $true
             Recurse = $false # We keep psdeploy.ps1 test artifacts, avoid deploying those : )
         }
-        Invoke-PSDeploy @Params -Verbose:$true
+        Invoke-PSDeploy @Params -Verbose:$true -ErrorVariable $DeployError
     } Catch {
-        $Error[0] | fl * -Force
         $ErrorMessage = $_.Exception.Message
         $FailedItem = $_.Exception.ItemName
         Write-Output $ErrorMessage
         Write-Output $FailedItem
+        Write-Output $DeployError
+        Write-Output $_.InvocationInfo.Line
         throw "Can't publish to gallery."
     }
 }
-
-$Error[0] | fl * -Force
