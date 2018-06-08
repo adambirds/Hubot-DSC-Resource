@@ -4,6 +4,8 @@ param(
     [string[]]$Task = 'default'
 )
 
+Get-PackageProvider -Name NuGet -ForceBootstrap; Install-Module -Name PowerShellGet -Force;
+
 if (!(Get-PackageProvider -Name Nuget -ErrorAction SilentlyContinue))
 {
     Install-PackageProvider -Name NuGet -Force
