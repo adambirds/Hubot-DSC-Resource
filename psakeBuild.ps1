@@ -204,3 +204,5 @@ task Deploy -depends BuildArtifact {
         throw "Can't publish to gallery."
     }
 }
+
+$Error[0] | fl * -Force
