@@ -12,7 +12,7 @@
 RootModule = 'InstallHubot.psm1'
 
 # Version number of this module.
-ModuleVersion = '2.0.43'
+ModuleVersion = '2.0.44'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
