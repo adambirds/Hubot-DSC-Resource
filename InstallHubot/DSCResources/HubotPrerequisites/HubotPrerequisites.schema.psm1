@@ -41,7 +41,7 @@
         Ensure = $Ensure
         Path  = "$($env:Temp)\$($nodeFile)"
         Name = "Node.js"
-        ProductId = "CE9C30F7-140C-4A6B-95C8-8304CCBF0145"
+        ProductId = "793c9b44-3d6b-4f57-b5d7-4ff80adcf9a2"
         Arguments = '/qn ALLUSERS=1 REBOOT=ReallySuppress'
         DependsOn = '[xRemoteFile]dlNode'
         ReturnCode = 0
