@@ -41,7 +41,7 @@
         Ensure = $Ensure
         Path  = "$($env:Temp)\$($nodeFile)"
         Name = "Node.js"
-        ProductId = "793c9b44-3d6b-4f57-b5d7-4ff80adcf9a2"
+        ProductId = "92871114-A878-4D98-8189-5B57142D26FD"
         Arguments = '/qn ALLUSERS=1 REBOOT=ReallySuppress'
         DependsOn = '[xRemoteFile]dlNode'
         ReturnCode = 0
@@ -56,7 +56,7 @@
     Package git {
         Ensure = $Ensure
         Path  = "$($env:Temp)\$($gitFile)"
-        Name = "Git version 2.9.0"
+        Name = "Git version 2.17.1.2"
         ProductId = ""
         Arguments = '/VERYSILENT /NORESTART /NOCANCEL /SP- /COMPONENTS="icons,icons\quicklaunch,ext,ext\shellhere,ext\guihere,assoc,assoc_sh" /LOG'
         DependsOn = '[xRemoteFile]dlGit'
