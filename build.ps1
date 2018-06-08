@@ -4,9 +4,6 @@ param(
     [string[]]$Task = 'default'
 )
 
-Install-PackageProvider -Name NuGet -Force -ForceBootstrap
-Install-Module –Name PowerShellGet –Force –Verbose -SkipPublisherCheck
-
 $modulesToInstall = @(
     'Pester',
     'psake',

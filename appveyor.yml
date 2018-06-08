@@ -1,7 +1,9 @@
 # See http://www.appveyor.com/docs/appveyor-yml for many more options
 
 init:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  - ps: Install-PackageProvider -Name NuGet -Force -ForceBootstrap
+  - ps: Install-Module –Name PowerShellGet –Force –Verbose -SkipPublisherCheck
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 environment:
   NuGetApiKey:
@@ -47,5 +49,5 @@ on_success:
   - git push origin master
   - git status
 
-on_finish:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+#  on_finish:
+#  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
