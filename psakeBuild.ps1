@@ -196,6 +196,7 @@ task Deploy -depends BuildArtifact {
         }
         Invoke-PSDeploy @Params -Verbose:$true
     } Catch {
+        $Error[0] | fl * -Force
         $ErrorMessage = $_.Exception.Message
         $FailedItem = $_.Exception.ItemName
         Write-Output $ErrorMessage
