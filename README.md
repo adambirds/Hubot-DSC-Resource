@@ -65,7 +65,7 @@ The DSC Resource Module is called `InstallHubot` and is available on the PowerSh
 
 ## Versions
 
-### 1.2.0
+### 2.0.57
 
 * Updated module dependencies so that it pulls down later versions of Git and NodeJs
 * Updated module dependences so that it installs `MSFT_xScriptResource` as part of `xPSDesiredStateConfiguration`

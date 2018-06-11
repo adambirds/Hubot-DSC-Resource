@@ -1,4 +1,5 @@
 .kitchen
+.nupkg
 Artifact
 /.vs
 PesterResults*
