@@ -1,7 +1,7 @@
 # See http://www.appveyor.com/docs/appveyor-yml for many more options
 
 init:
-  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 environment:
   NuGetApiKey:
@@ -17,9 +17,7 @@ os: "WMF 5"
 install:
   - ps: Write-Output "Build Number $($env:APPVEYOR_BUILD_NUMBER)"
   - ps: Write-Output "Build Version $($env:APPVEYOR_BUILD_VERSION)"
-  - ps: |
-      Install-PackageProvider -Name NuGet -Force -ForceBootstrap
-      Install-Module –Name PowerShellGet –Force –Verbose -SkipPublisherCheck
+  - ps: PowerShell -Command {Get-PackageProvider -Name NuGet -ForceBootstrap -Verbose; Install-Module -Name PowerShellGet -Force -SkipPublisherCheck -Verbose;}
 
 build: off
 
