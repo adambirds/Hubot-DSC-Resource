@@ -65,13 +65,13 @@ Configuration Hubot {
 
 $configData = @{
     AllNodes = @(
-            @{
-                NodeName = 'localhost';
-                Role = 'Hubot'
-                SlackAPIKey = 'xoxb-XXXXXXXXXXXXXXXX-XXXXXXXXXXXXXXXX'
-                HubotAdapter = 'slack'
-                HubotBotName = 'bot'
-                HubotBotPath = 'C:\SCRIPTS\myhubot'
-            }
-        )
-    }
+        @{
+            NodeName = 'localhost';
+            Role = 'Hubot'
+            SlackAPIKey = 'xoxb-XXXXXXXXXXXXXXXX-XXXXXXXXXXXXXXXX'
+            HubotAdapter = 'slack'
+            HubotBotName = 'bot'
+            HubotBotPath = 'C:\SCRIPTS\myhubot'
+        }
+    )
+}
