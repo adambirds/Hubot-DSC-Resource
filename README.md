@@ -63,6 +63,10 @@ The DSC Resource Module is called `InstallHubot` and is available on the PowerSh
 
 * Click [here](https://www.powershellgallery.com/packages/InstallHubot)
 
+## Developer Information
+
+Developed by [ADB Web Designs](https://adbwebdesigns.co.uk)
+
 ## Versions
 
 ### 2.0.57
